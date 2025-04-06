@@ -42,6 +42,10 @@ app.get("/formdata", async (req, res) => {
   res.render("formData", { contact: data }); // Render the formData view with the fetched data
 });
 
+app.get("/createblog", (req, res) => {
+  res.render("createBlog");
+});
+
 app.use(express.static("./storage/"));
 
 app.listen(3000, () => {
