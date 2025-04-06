@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Form Data</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+      background-color: #f7f9fc;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
+    
+    .data-container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+    
+    .data-item {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+    }
+    
+    .data-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+    
+    .label {
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 5px;
+      display: block;
+    }
+    
+    .value {
+      background-color: #f5f7fa;
+      padding: 10px;
+      border-radius: 4px;
+      word-break: break-word;
+    }
+    
+    .image-preview {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+      display: block;
+    }
+    
+    .empty-message {
+      color: #7f8c8d;
+      font-style: italic;
+    }
+    
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    
+    .toolbar button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+    
+    .toolbar button:hover {
+      background-color: #2980b9;
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .pagination button {
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+      margin: 0 5px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    
+    .pagination button.active {
+      background-color: #3498db;
+      color: white;
+      border-color: #3498db;
+    }
+    
+    .pagination button:hover:not(.active) {
+      background-color: #f1f1f1;
+    }
+    
+    @media (max-width: 600px) {
+      .toolbar {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .toolbar button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Contact Form Submissions</h1>
+  
+  <div class="toolbar">
+    <button id="refreshBtn">Refresh Data</button>
+    <button id="exportBtn">Export to CSV</button>
+  </div>
+  
+  <div id="submissionsContainer">
+    
+    
+    <!-- Second sample data submission -->
+    <div class="data-container">
+        <% contact.forEach((data) => { %>
+      <div class="data-item">
+        <span class="label">Submission ID</span>
+        <div class="value"><%= data.id %></div>
+      </div>
+      
+      <div class="data-item">
+        <span class="label">Date Submitted</span>
+        <div class="value"><%= data.createdAt %></div></div>
+      </div>
+      
+      <div class="data-item">
+        <span class="label">Name</span>
+        <div class="value"><%= data.name %></div>
+      </div>
+      
+      <div class="data-item">
+        <span class="label">Email Address</span>
+        <div class="value"><%= data.email %></div>
+      </div>
+      
+      <div class="data-item">
+        <span class="label">Phone Number</span>
+        <div class="value"><span class="empty-message"><%= data.phone %></span></div>
+      </div>
+      
+      <div class="data-item">
+        <span class="label">Subject</span>
+        <div class="value"><%= data.subject %></div>
+      </div>
+      
+      <div class="data-item">
+        <span class="label">Message</span>
+        <div class="value"><%= data.message %></div>
+      </div>
+      
+      <div class="data-item">
+        <span class="label">Uploaded Image</span>
+        <div class="value"><img src="<%= data.image %>" class="image-preview" alt=""></div>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+  
+  <div class="pagination">
+    <button>&laquo;</button>
+    <button class="active">1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>&raquo;</button>
+  </div>
+
+  <script>
+    // Simple interaction for demo purposes
+    document.getElementById('refreshBtn').addEventListener('click', function() {
+      alert('Data refreshed');
+    });
+    
+    document.getElementById('exportBtn').addEventListener('click', function() {
+      alert('Exporting data to CSV...');
+    });
+    
+    // Add click handlers to pagination
+    const paginationButtons = document.querySelectorAll('.pagination button');
+    paginationButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        paginationButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button if it's a number
+        if (!isNaN(this.textContent)) {
+          this.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
