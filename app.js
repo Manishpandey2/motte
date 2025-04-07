@@ -49,6 +49,9 @@ app.get("/createblog", (req, res) => {
 app.get("/blog", (req, res) => {
   res.render("blog");
 });
+app.get("/singleblog", (req, res) => {
+  res.render("singleBlog");
+});
 app.get("/dashboard", (req, res) => {
   res.render("dashboard");
 });

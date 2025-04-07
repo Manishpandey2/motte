@@ -439,7 +439,7 @@
             <form class="blog-form">
                 <div class="form-group">
                     <label for="post-title">Post Title</label>
-                    <input type="text" id="post-title" class="form-control" placeholder="Enter post title">
+                    <input type="text" id="post-title" class="form-control" placeholder="Enter post title" name="title" required>
                 </div>
 
                 <div class="form-group">
@@ -466,14 +466,14 @@
                             <button type="button">Video</button>
                         </div>
                     </div>
-                    <textarea id="post-content" class="form-control" placeholder="Write your blog post content here..."></textarea>
+                    <textarea id="post-content" class="form-control" placeholder="Write your blog post content here..." name="content"></textarea>
                 </div>
 
                 <div class="form-row">
                     <div class="form-col">
                         <div class="form-group">
                             <label for="post-excerpt">Excerpt</label>
-                            <textarea id="post-excerpt" class="form-control" style="min-height: 100px;" placeholder="A brief summary of your post"></textarea>
+                            <textarea id="post-excerpt" class="form-control" style="min-height: 100px;" placeholder="A brief summary of your post" name="excerpt"></textarea>
                         </div>
                     </div>
                     <div class="form-col">
@@ -482,7 +482,7 @@
                             <input type="file" id="featured-image" class="form-control">
                             <div class="image-preview">
                                 <div class="preview-item">
-                                    <img src="/api/placeholder/150/100" alt="Preview">
+                                    <img src="/api/placeholder/150/100" alt="Preview" name="image1">
                                     <button type="button" class="remove-btn">×</button>
                                 </div>
                             </div>
@@ -494,7 +494,7 @@
                     <div class="form-col">
                         <div class="form-group">
                             <label for="categories">Categories</label>
-                            <select id="categories" class="form-control" multiple>
+                            <select id="categories" class="form-control" multiple name="categories">
                                 <option value="1">Technology</option>
                                 <option value="2">Travel</option>
                                 <option value="3">Food</option>
@@ -510,7 +510,7 @@
                             <div class="tags-input">
                                 <span class="tag">Javascript <span class="remove-tag">×</span></span>
                                 <span class="tag">Web Development <span class="remove-tag">×</span></span>
-                                <input type="text" placeholder="Add tag...">
+                                <input type="text" placeholder="Add tag..." name="tags" id="tags-input">
                             </div>
                         </div>
                     </div>
@@ -520,13 +520,13 @@
                     <div class="form-col">
                         <div class="form-group">
                             <label for="slug">URL Slug</label>
-                            <input type="text" id="slug" class="form-control" placeholder="post-url-slug">
+                            <input type="text" id="slug" class="form-control" placeholder="post-url-slug" name="slug">
                         </div>
                     </div>
                     <div class="form-col">
                         <div class="form-group">
                             <label for="author">Author</label>
-                            <select id="author" class="form-control">
+                            <select id="author" class="form-control" name="author">
                                 <option value="1">Admin User</option>
                                 <option value="2">John Doe</option>
                                 <option value="3">Jane Smith</option>
@@ -541,7 +541,7 @@
                         <input type="text" class="form-control" placeholder="Meta Title">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" style="min-height: 80px;" placeholder="Meta Description"></textarea>
+                        <textarea class="form-control" style="min-height: 80px;" placeholder="Meta Description" name="metaDescription"></textarea>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" id="seo-index">

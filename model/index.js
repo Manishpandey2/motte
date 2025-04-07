@@ -22,6 +22,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.contact = require("./contactModel.js")(sequelize, DataTypes);
+db.blog = require("./blogModel.js")(sequelize, DataTypes);
 
 sequelize.sync({ force: false }).then(() => {
   console.log("Drop and re-sync db.");
