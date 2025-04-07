@@ -90,6 +90,12 @@ app.get("/singleblog/:id", async (req, res) => {
   });
   res.render("singleBlog", { blog: blogData });
 });
+app.get("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  await blog.destroy({ where: { id: id } });
+  res.redirect("/dashboard");
+});
+
 app.get("/dashboard", async (req, res) => {
   const data = await blog.findAll();
   console.log(data);
