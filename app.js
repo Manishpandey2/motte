@@ -1,6 +1,6 @@
 const express = require("express");
 const { db } = require("./model/index.js");
-const contact = db.contact;
+const { contact, blog } = db;
 const app = express();
 
 require("./model/index.js"); // Initialize the database connection
@@ -40,6 +40,37 @@ app.get("/formdata", async (req, res) => {
   const data = await contact.findAll();
   // Fetch all form data from the database
   res.render("formData", { contact: data }); // Render the formData view with the fetched data
+});
+
+app.post("/createblog", upload.single("image1"), async (req, res) => {
+  const {
+    title,
+    content,
+    excerpt,
+    categories,
+    tags,
+    slug,
+    author,
+    metaDescription,
+  } = req.body;
+
+  try {
+    await blog.create({
+      title,
+      content,
+      excerpt,
+      image1: req.file.filename,
+      categories,
+      tags,
+      slug,
+      author,
+      metaDescription,
+    });
+  } catch (error) {
+    console.error("Error creating blog post:", error);
+    return res.status(500).send("Internal Server Error"); // Handle errors gracefully
+  }
+  res.redirect("/blog"); // Redirect to the blog page after creating a blog post
 });
 
 app.get("/createblog", (req, res) => {
