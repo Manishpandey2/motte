@@ -82,8 +82,14 @@ app.get("/blog", async (req, res) => {
   const data = await blog.findAll();
   res.render("blog", { blog: data });
 });
-app.get("/singleblog", (req, res) => {
-  res.render("singleBlog");
+app.get("/singleblog/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const blogData = await blog.findAll({
+    where: { id: id },
+  });
+  console.log(blogData);
+  res.render("singleBlog", { blog: blogData });
 });
 app.get("/dashboard", (req, res) => {
   res.render("dashboard");

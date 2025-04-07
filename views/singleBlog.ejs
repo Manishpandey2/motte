@@ -405,88 +405,70 @@
                     <div class="blog-meta">
                         <div class="blog-meta-item">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                            April 7, 2025
+                            <%= blog[0].createdAt %>
                         </div>
                         <div class="blog-meta-item">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            John Doe
+                            <% 
+                            const authorNames = {
+                                '1': 'Admin User',
+                                '2': 'Manish Pandey',
+                                '3': 'Motte',
+                            };
+                            %>
+                        <%= authorNames[blog[0].author] || "Unknown Author" %>
                         </div>
                         <div class="blog-meta-item">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                             5 Comments
                         </div>
-                        <span class="blog-category">Technology</span>
+                        <span class="blog-category"><%
+                            const categoryNames = {
+                                '1' : 'Technology',
+                                '2' : 'Travel',
+                                '3' : 'Food',
+                                '4' : 'Lifestyle',
+                                '5' : 'Business',
+                                '6' : 'Health',
+                            };
+                            const categories = blog[0].categories.split(',').map(id => categoryNames[id.trim()] || "Uncategorized");
+                        %>
+                        <%= categories.join(', ') %></span>
                     </div>
                     
-                    <h1 class="blog-title">10 Essential Web Development Tools Every Developer Should Know</h1>
+                    <h1 class="blog-title"><%= blog[0].title %></h1>
                     
                     <div class="blog-tags">
-                        <span class="blog-tag">Javascript</span>
-                        <span class="blog-tag">Web Development</span>
-                        <span class="blog-tag">Tools</span>
-                        <span class="blog-tag">Frontend</span>
+                        <% if(blog[0].tags) { %>
+                            <% blog[0].tags.split(',').forEach(tag => { %>
+                                <span class="blog-tag"><%= tag.trim() %></span>
+                            <% }); %>
+                        <% } %>
                     </div>
                 </div>
                 
-                <img src="/api/placeholder/1200/400" alt="Featured Image" class="blog-featured-image">
+                <img src="http://localhost:3000/<%= blog[0].image1 %>" alt="Featured Image" class="blog-featured-image">
                 
                 <div class="blog-content">
                     <div class="blog-excerpt">
-                        Discover the most essential development tools that will boost your productivity and help you create better web applications faster than ever before.
+                        <%= blog[0].excerpt %>
                     </div>
                     
-                    <p>Web development continues to evolve rapidly, with new tools and technologies emerging every day. Staying updated with the latest development tools not only helps you work more efficiently but also gives you a competitive edge in the industry.</p>
-                    
-                    <h2>1. VS Code: The Swiss Army Knife of Code Editors</h2>
-                    <p>Visual Studio Code has quickly become the go-to editor for web developers worldwide. Its extensive extension library, intelligent code completion, and built-in terminal make it a powerful tool that adapts to almost any development workflow.</p>
-                    
-                    <h2>2. Chrome DevTools: Your Frontend Debugging Companion</h2>
-                    <p>Chrome's built-in developer tools provide a comprehensive set of utilities for debugging, profiling, and optimizing web applications. Learning to effectively use its network monitor, console, and performance tools can significantly speed up your development process.</p>
-                    
-                    <h2>3. Git: Version Control Made Simple</h2>
-                    <p>Git has become the standard for version control in software development. Understanding how to track changes, branch your code, and collaborate with others using Git is essential for any web developer working in a team environment.</p>
-                    
-                    <blockquote>
-                        "The most powerful tools are often the simplest ones to use but the hardest to master."
-                    </blockquote>
-                    
-                    <h2>4. npm: The Node Package Manager</h2>
-                    <p>As the largest software registry in the world, npm provides access to countless reusable components and libraries. Learning how to effectively manage packages and dependencies with npm can save you hours of development time.</p>
-                    
-                    <h3>Popular npm Commands</h3>
-                    <ul>
-                        <li><strong>npm install</strong> - Install all dependencies for a project</li>
-                        <li><strong>npm start</strong> - Run the start script defined in package.json</li>
-                        <li><strong>npm run build</strong> - Execute the build script for production</li>
-                        <li><strong>npm update</strong> - Update all packages to their latest version</li>
-                    </ul>
-                    
-                    <h2>5. Webpack: Bundle Your Assets</h2>
-                    <p>Webpack has become the standard bundler for modern JavaScript applications. It allows you to bundle your JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset.</p>
-                    
-                    <img src="/api/placeholder/800/400" alt="Code Example">
-                    
-                    <h2>6. Sass: Supercharge Your CSS</h2>
-                    <p>Sass extends CSS with features like variables, nested rules, mixins, and functions, making stylesheets more maintainable and easier to share between projects.</p>
-                    
-                    <h2>7. Docker: Consistent Development Environments</h2>
-                    <p>Docker containers ensure that your application runs the same way in development as it does in production, eliminating the "it works on my machine" problem and making deployments more reliable.</p>
-                    
-                    <h2>8. Postman: API Development and Testing</h2>
-                    <p>Postman simplifies API testing with an intuitive interface for sending requests, examining responses, and automating tests, making it an invaluable tool for both frontend and backend developers.</p>
-                    
-                    <h2>9. ESLint: Keep Your Code Clean</h2>
-                    <p>ESLint helps maintain code quality by identifying problematic patterns in your JavaScript code and enforcing style guidelines across your team.</p>
-                    
-                    <h2>10. Jest: JavaScript Testing Framework</h2>
-                    <p>Jest provides a painless testing experience with zero configuration required. Its snapshot testing feature is particularly useful for ensuring UI components don't change unexpectedly.</p>
-                    
-                    <p>Incorporating these tools into your development workflow will not only enhance your productivity but also help you build more robust, maintainable web applications. Remember that mastering these tools takes time and practice, so don't be discouraged if you don't become an expert overnight.</p>
+                        <%= blog[0].content %>
                     
                     <div class="blog-author">
                         <img src="/api/placeholder/80/80" alt="Author" class="author-avatar">
                         <div class="author-info">
-                            <h4>John Doe</h4>
+                            <h4>
+                                <% 
+                            const authorName = {
+                                '1': 'Admin User',
+                                '2': 'Manish Pandey',
+                                '3': 'Motte',
+                            };
+                            %>
+                        <%= authorName[blog[0].author] || "Unknown Author" %>
+                            </h4>
                             <p class="author-bio">Senior Web Developer with over 10 years of experience in building scalable web applications. Passionate about JavaScript, React, and emerging web technologies.</p>
                         </div>
                     </div>

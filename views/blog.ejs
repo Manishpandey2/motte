@@ -587,7 +587,7 @@
                             </span>
                             <span><%= post.createdAt %></span>
                         </div>
-                        <h3 class="blog-card-title"><a href="#"><%= post.title %></a></h3>
+                        <h3 class="blog-card-title"><a href="/singleblog/<%= post.id %>"><%= post.title %></a></h3>
                         <p class="blog-card-excerpt"><%= post.description %></p>
                         <div class="blog-card-tags">
                             <% if(post.tags) { %>
