@@ -60,8 +60,9 @@ app.post("/createblog", upload.single("image1"), async (req, res) => {
       content,
       excerpt,
       image1: req.file.filename,
-      categories,
-      tags,
+      categories: Array.isArray(categories) ? categories.join(",") : categories, // Convert categories to a comma-separated string if it's an array
+      tags: Array.isArray(tags) ? tags.join(",") : tags, // Convert tags to a comma-separated string if it's an array
+
       slug,
       author,
       metaDescription,

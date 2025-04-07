@@ -590,5 +590,80 @@
         </div>
     </footer>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('featured-image');
+        const imagePreview = document.querySelector('.image-preview');
+        
+        // Initial state - hide the preview if no image
+        updatePreviewVisibility();
+        
+        // Listen for file selection
+        fileInput.addEventListener('change', function() {
+            // Clear the current preview
+            imagePreview.innerHTML = '';
+            
+            if (this.files && this.files[0]) {
+                // Create a preview item for the selected file
+                const previewItem = document.createElement('div');
+                previewItem.className = 'preview-item';
+                
+                // Create image element
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(this.files[0]);
+                img.alt = 'Preview';
+                
+                // Create remove button
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'remove-btn';
+                removeBtn.textContent = '×';
+                removeBtn.addEventListener('click', function() {
+                    // Clear the file input
+                    fileInput.value = '';
+                    // Remove the preview
+                    imagePreview.innerHTML = '';
+                    // Update visibility
+                    updatePreviewVisibility();
+                });
+                
+                // Add elements to the preview item
+                previewItem.appendChild(img);
+                previewItem.appendChild(removeBtn);
+                
+                // Add the preview item to the preview area
+                imagePreview.appendChild(previewItem);
+                
+                // Make sure preview is visible
+                updatePreviewVisibility();
+            } else {
+                // No file selected, hide the preview
+                updatePreviewVisibility();
+            }
+        });
+        
+        // Function to handle preview visibility
+        function updatePreviewVisibility() {
+            if (imagePreview.children.length > 0) {
+                imagePreview.style.display = 'flex';
+            } else {
+                imagePreview.style.display = 'none';
+            }
+        }
+        
+        // Handle the existing preview item's remove button
+        const existingRemoveBtn = imagePreview.querySelector('.remove-btn');
+        if (existingRemoveBtn) {
+            existingRemoveBtn.addEventListener('click', function() {
+                // Clear the file input
+                fileInput.value = '';
+                // Remove the preview
+                imagePreview.innerHTML = '';
+                // Update visibility
+                updatePreviewVisibility();
+            });
+        }
+    });
+</script>
 
 </html>
