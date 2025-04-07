@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Blog Posts - BlogManager</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --light: #ecf0f1;
+            --gray: #bdc3c7;
+            --text: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f5f5f5;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--secondary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo a {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .nav-links a.active {
+            font-weight: bold;
+            border-bottom: 2px solid white;
+        }
+        
+        main {
+            padding: 2rem 0;
+        }
+        
+        /* Page Header */
+        .page-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-description {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Filter and Search Section */
+        .filter-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .search-box svg {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: #666;
+        }
+        
+        .filter-options {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-select {
+            padding: 0.8rem;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            background-color: white;
+            min-width: 150px;
+            font-size: 0.9rem;
+        }
+        
+        /* Blog Grid */
+        .blogs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .blog-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .blog-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .blog-card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .blog-card-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.8rem;
+            color: #666;
+            flex-wrap: wrap;
+        }
+        
+        .blog-card-category {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        
+        .blog-card-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+            color: var(--secondary);
+        }
+        
+        .blog-card-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .blog-card-title a:hover {
+            color: var(--primary);
+        }
+        
+        .blog-card-excerpt {
+            color: #666;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            flex: 1;
+        }
+        
+        .blog-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--light);
+        }
+        
+        .blog-card-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .blog-card-author-image {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            object-fit: cover;
+        }
+        
+        .blog-card-author-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .blog-card-comments {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .blog-card-comments svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 0.3rem;
+        }
+        
+        .blog-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .blog-card-tag {
+            background-color: var(--light);
+            color: var(--secondary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        
+        /* Featured Blog */
+        .featured-blog {
+            margin-bottom: 3rem;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .featured-image {
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .featured-label {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .featured-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            color: var(--secondary);
+        }
+        
+        .featured-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .featured-title a:hover {
+            color: var(--primary);
+        }
+        
+        .featured-excerpt {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+        
+        .featured-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+        
+        .featured-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .featured-author-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 0.8rem;
+            object-fit: cover;
+        }
+        
+        .featured-author-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .featured-author-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .featured-date {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        
+        .read-more:hover {
+            color: var(--primary-dark);
+        }
+        
+        .read-more svg {
+            margin-left: 0.3rem;
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s;
+        }
+        
+        .read-more:hover svg {
+            transform: translateX(3px);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 0.5rem;
+        }
+        
+        .pagination-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background-color: white;
+            color: var(--text);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .pagination-item:hover {
+            background-color: var(--light);
+        }
+        
+        .pagination-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .pagination-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-item svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 992px) {
+            .featured-blog {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-image {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                width: 100%;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+                margin-right: 20px;
+            }
+            
+            .filter-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .filter-options {
+                width: 100%;
+            }
+            
+            .blogs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="#">BlogManager</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#" class="active">Blog</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">All Blog Posts</h1>
+                <p class="page-description">Explore our latest articles, tutorials, and insights about web development, programming, and technology.</p>
+            </div>
+            
+            <div class="filter-section">
+                <div class="search-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" placeholder="Search articles...">
+                </div>
+                <div class="filter-options">
+                    <select class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="technology">Technology</option>
+                        <option value="programming">Programming</option>
+                        <option value="design">Design</option>
+                        <option value="career">Career</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="latest">Latest</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="oldest">Oldest</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="featured-blog">
+                <img src="/api/placeholder/600/600" alt="Featured Post" class="featured-image">
+                <div class="featured-content">
+                    <span class="featured-label">Featured Post</span>
+                    <h2 class="featured-title"><a href="#">10 Essential Web Development Tools Every Developer Should Know</a></h2>
+                    <p class="featured-excerpt">Discover the most essential development tools that will boost your productivity and help you create better web applications faster than ever before.</p>
+                    <div class="featured-meta">
+                        <div class="featured-author">
+                            <img src="/api/placeholder/40/40" alt="Author" class="featured-author-image">
+                            <div class="featured-author-info">
+                                <span class="featured-author-name">John Doe</span>
+                                <span class="featured-date">April 7, 2025</span>
+                            </div>
+                        </div>
+                        <a href="#" class="read-more">
+                            Read Article
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blogs-grid">
+                <div class="blog-card">
+                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">JavaScript</span>
+                            <span>April 2, 2025</span>
+                        </div>
+                        <h3 class="blog-card-title"><a href="#">5 JavaScript Frameworks to Watch in 2025</a></h3>
+                        <p class="blog-card-excerpt">A look at the most promising JavaScript frameworks that are gaining traction this year and how they can improve your development workflow.</p>
+                        <div class="blog-card-tags">
+                            <span class="blog-card-tag">JavaScript</span>
+                            <span class="blog-card-tag">Frameworks</span>
+                            <span class="blog-card-tag">Frontend</span>
+                        </div>
+                        <div class="blog-card-footer">
+                            <div class="blog-card-author">
+                                <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
+                                <span class="blog-card-author-name">Alex Johnson</span>
+                            </div>
+                            <div class="blog-card-comments">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                8 Comments
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">CSS</span>
+                            <span>March 28, 2025</span>
+                        </div>
+                        <h3 class="blog-card-title"><a href="#">Building Responsive Designs with CSS Grid and Flexbox</a></h3>
+                        <p class="blog-card-excerpt">Learn how to combine the power of CSS Grid and Flexbox to create beautiful, responsive layouts for modern websites.</p>
+                        <div class="blog-card-tags">
+                            <span class="blog-card-tag">CSS</span>
+                            <span class="blog-card-tag">Layout</span>
+                            <span class="blog-card-tag">Responsive</span>
+                        </div>
+                        <div class="blog-card-footer">
+                            <div class="blog-card-author">
+                                <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
+                                <span class="blog-card-author-name">Emily Chen</span>
+                            </div>
+                            <div class="blog-card-comments">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                12 Comments
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">Performance</span>
+                            <span>March 25, 2025</span>
+                        </div>
+                        <h3 class="blog-card-title"><a href="#">The Complete Guide to Web Performance Optimization</a></h3>
+                        <p class="blog-card-excerpt">Explore strategies and techniques to improve your website's loading speed and overall performance for better user experience.</p>
+                        <div class="blog-card-tags">
+                            <span class="blog-card-tag">Performance</span>
+                            <span class="blog-card-tag">Optimization</span>
+                            <span class="blog-card-tag">Speed</span>
+                        </div>
+                        <div class="blog-card-footer">
+                            <div class="blog-card-author">
+                                <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
+                                <span class="blog-card-author-name">Michael Smith</span>
+                            </div>
+                            <div class="blog-card-comments">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                6 Comments
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">Backend</span>
+                            <span>March 20, 2025</span>
+                        </div>
+                        <h3 class="blog-card-title"><a href="#">Getting Started with GraphQL: A Practical Guide</a></h3>
+                        <p class="blog-card-excerpt">Learn how to implement GraphQL in your applications and why it might be a better alternative to traditional REST APIs.</p>
+                        <div class="blog-card-tags">
+                            <span class="blog-card-tag">GraphQL</span>
+                            <span class="blog-card-tag">API</span>
+                            <span class="blog-card-tag">Backend</span>
+                        </div>
+                        <div class="blog-card-footer">
+                            <div class="blog-card-author">
+                                <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
+                                <span class="blog-card-author-name">Sarah Wilson</span>
+                            </div>
+                            <div class="blog-card-comments">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                9 Comments
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">DevOps</span>
+                            <span>March 15, 2025</span>
+                        </div>
+                        <h3 class="blog-card-title"><a href="#">CI/CD Pipelines Explained: From Concept to Implementation</a></h3>
+                        <p class="blog-card-excerpt">Understand the fundamentals of Continuous Integration and Continuous Deployment and how to set up effective pipelines for your projects.</p>
+                        <div class="blog-card-tags">
+                            <span class="blog-card-tag">DevOps</span>
+                            <span class="blog-card-tag">CI/CD</span>
+                            <span class="blog-card-tag">Automation</span>
+                        </div>
+                        <div class="blog-card-footer">
+                            <div class="blog-card-author">
+                                <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
+                                <span class="blog-card-author-name">David Lee</span>
+                            </div>
+                            <div class="blog-card-comments">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                4 Comments
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">Accessibility</span>
+                            <span>March 10, 2025</span>
+                        </div>
+                        <h3 class="blog-card-title"><a href="#">Web Accessibility: Making Your Sites Inclusive for Everyone</a></h3>
+                        <p class="blog-card-excerpt">Discover practical tips and best practices for ensuring your websites are accessible to all users, including those with disabilities.</p>
+                        <div class="blog-card-tags">
+                            <span class="blog-card-tag">Accessibility</span>
+                            <span class="blog-card-tag">Inclusivity</span>
+                            <span class="blog-card-tag">UX</span>
+                        </div>
+                        <div class="blog-card-footer">
+                            <div class="blog-card-author">
+                                <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
+                                <span class="blog-card-author-name">Lisa Rodriguez</span>
+                            </div>
+                            <div class="blog-card-comments">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                7 Comments
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pagination">
+                <a href="#" class="pagination-item disabled">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </a>
+                <a href="#" class="pagination-item active">1</a>
+                <a href="#" class="pagination-item">2</a>
+                <a href="#" class="pagination-item">3</a>
+                <a href="#" class="pagination-item">4</a>
+                <a href="#" class="pagination-item">5</a>
+                <a href="#" class="pagination-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>© 2025 BlogManager. All rights reserved.</div>
+                <div>Version 1.0.0</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
