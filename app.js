@@ -49,6 +49,9 @@ app.get("/createblog", (req, res) => {
 app.get("/blog", (req, res) => {
   res.render("blog");
 });
+app.get("/dashboard", (req, res) => {
+  res.render("dashboard");
+});
 app.use(express.static("./storage/"));
 
 app.listen(3000, () => {
