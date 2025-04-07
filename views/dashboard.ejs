@@ -806,14 +806,38 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <% art.forEach((arts) => { %>)
                         <tr>
+                            
                             <td class="title-cell">
-                                <div class="blog-title">10 Essential Tips for Better Blog Writing</div>
-                                <div class="blog-excerpt">Learn how to craft engaging blog posts that captivate your audience and drive more traffic to your website...</div>
+                                <div class="blog-title"><%= arts.title %></div>
+                                <div class="blog-excerpt"><%= arts.excerpt %></div>
                             </td>
-                            <td>John Doe</td>
-                            <td>Writing</td>
-                            <td>Apr 03, 2025</td>
+                            <td>
+                                <% 
+                                        const authorNames = {
+                                            '1': 'Admin User',
+                                            '2': 'Manish Pandey',
+                                            '3': 'Motte',
+                                        };
+                                        %>
+                                    <%= authorNames[arts.author] || "Unknown Author" %>
+                            </td>
+                            <td>
+                                <%
+                                    const categoryNames = {
+                                        '1' : 'Technology',
+                                        '2' : 'Travel',
+                                        '3' : 'Food',
+                                        '4' : 'Lifestyle',
+                                        '5' : 'Business',
+                                        '6' : 'Health',
+                                    };
+                                    const categories = arts.categories.split(',').map(id => categoryNames[id.trim()] || "Uncategorized");
+                                %>
+                                <%= categories.join(', ') %>
+                            </td>
+                            <td><%= arts.createdAt.toDateString().slice(4) %></td></td>
                             <td><span class="status-badge status-published">Published</span></td>
                             <td class="action-cell">
                                 <button class="action-btn view-btn">
@@ -826,91 +850,10 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                 </button>
                             </td>
+                            
                         </tr>
-                        <tr>
-                            <td class="title-cell">
-                                <div class="blog-title">SEO Strategies for 2025: What You Need to Know</div>
-                                <div class="blog-excerpt">The world of search engine optimization is constantly evolving. Stay ahead of the curve with these proven strategies...</div>
-                            </td>
-                            <td>Sarah Johnson</td>
-                            <td>SEO</td>
-                            <td>Apr 01, 2025</td>
-                            <td><span class="status-badge status-published">Published</span></td>
-                            <td class="action-cell">
-                                <button class="action-btn view-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                </button>
-                                <button class="action-btn edit-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                </button>
-                                <button class="action-btn delete-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="title-cell">
-                                <div class="blog-title">Creating a Content Calendar That Works</div>
-                                <div class="blog-excerpt">Learn how to plan and organize your content strategy with an effective editorial calendar that drives results...</div>
-                            </td>
-                            <td>Michael Brown</td>
-                            <td>Strategy</td>
-                            <td>Mar 28, 2025</td>
-                            <td><span class="status-badge status-draft">Draft</span></td>
-                            <td class="action-cell">
-                                <button class="action-btn view-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                </button>
-                                <button class="action-btn edit-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                </button>
-                                <button class="action-btn delete-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="title-cell">
-                                <div class="blog-title">Using AI Tools to Enhance Your Writing Process</div>
-                                <div class="blog-excerpt">Discover how artificial intelligence can help you create better content faster without sacrificing quality...</div>
-                            </td>
-                            <td>Emily Chen</td>
-                            <td>Technology</td>
-                            <td>Mar 25, 2025</td>
-                            <td><span class="status-badge status-review">Under Review</span></td>
-                            <td class="action-cell">
-                                <button class="action-btn view-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                </button>
-                                <button class="action-btn edit-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                </button>
-                                <button class="action-btn delete-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="title-cell">
-                                <div class="blog-title">The Complete Guide to Blog Monetization</div>
-                                <div class="blog-excerpt">Turn your blog into a revenue stream with these proven monetization techniques that work for bloggers of all sizes...</div>
-                            </td>
-                            <td>Alex Turner</td>
-                            <td>Business</td>
-                            <td>Mar 22, 2025</td>
-                            <td><span class="status-badge status-published">Published</span></td>
-                            <td class="action-cell">
-                                <button class="action-btn view-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                </button>
-                                <button class="action-btn edit-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                </button>
-                                <button class="action-btn delete-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                </button>
-                            </td>
-                        </tr>
+                        <% }); %>
+                        
                     </tbody>
                 </table>
                 

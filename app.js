@@ -88,11 +88,12 @@ app.get("/singleblog/:id", async (req, res) => {
   const blogData = await blog.findAll({
     where: { id: id },
   });
-  console.log(blogData);
   res.render("singleBlog", { blog: blogData });
 });
-app.get("/dashboard", (req, res) => {
-  res.render("dashboard");
+app.get("/dashboard", async (req, res) => {
+  const data = await blog.findAll();
+  console.log(data);
+  res.render("dashboard", { art: data });
 });
 app.use(express.static("./storage/"));
 
