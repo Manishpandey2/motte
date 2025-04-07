@@ -585,24 +585,26 @@
             </div>
             
             <div class="blogs-grid">
+                <% blog.forEach((post) => { %>
                 <div class="blog-card">
-                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
+                    
+                    <img src="<%= post.image1 %>" alt="Blog Post" class="blog-card-image">
                     <div class="blog-card-content">
                         <div class="blog-card-meta">
-                            <span class="blog-card-category">JavaScript</span>
-                            <span>April 2, 2025</span>
+                            <span class="blog-card-category"><%= post.category %></span>
+                            <span><%= post.createdAt %></span>
                         </div>
-                        <h3 class="blog-card-title"><a href="#">5 JavaScript Frameworks to Watch in 2025</a></h3>
-                        <p class="blog-card-excerpt">A look at the most promising JavaScript frameworks that are gaining traction this year and how they can improve your development workflow.</p>
+                        <h3 class="blog-card-title"><a href="#"><%= post.title %></a></h3>
+                        <p class="blog-card-excerpt"><%= post.description %></p>
                         <div class="blog-card-tags">
-                            <span class="blog-card-tag">JavaScript</span>
+                            <span class="blog-card-tag"><%= post.tags %></span>
                             <span class="blog-card-tag">Frameworks</span>
                             <span class="blog-card-tag">Frontend</span>
                         </div>
                         <div class="blog-card-footer">
                             <div class="blog-card-author">
                                 <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
-                                <span class="blog-card-author-name">Alex Johnson</span>
+                                <span class="blog-card-author-name"><%= post.author || "John Doe" %></span></span>
                             </div>
                             <div class="blog-card-comments">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
@@ -610,143 +612,10 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
+                <% }); %>
                 
-                <div class="blog-card">
-                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
-                    <div class="blog-card-content">
-                        <div class="blog-card-meta">
-                            <span class="blog-card-category">CSS</span>
-                            <span>March 28, 2025</span>
-                        </div>
-                        <h3 class="blog-card-title"><a href="#">Building Responsive Designs with CSS Grid and Flexbox</a></h3>
-                        <p class="blog-card-excerpt">Learn how to combine the power of CSS Grid and Flexbox to create beautiful, responsive layouts for modern websites.</p>
-                        <div class="blog-card-tags">
-                            <span class="blog-card-tag">CSS</span>
-                            <span class="blog-card-tag">Layout</span>
-                            <span class="blog-card-tag">Responsive</span>
-                        </div>
-                        <div class="blog-card-footer">
-                            <div class="blog-card-author">
-                                <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
-                                <span class="blog-card-author-name">Emily Chen</span>
-                            </div>
-                            <div class="blog-card-comments">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                                12 Comments
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="blog-card">
-                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
-                    <div class="blog-card-content">
-                        <div class="blog-card-meta">
-                            <span class="blog-card-category">Performance</span>
-                            <span>March 25, 2025</span>
-                        </div>
-                        <h3 class="blog-card-title"><a href="#">The Complete Guide to Web Performance Optimization</a></h3>
-                        <p class="blog-card-excerpt">Explore strategies and techniques to improve your website's loading speed and overall performance for better user experience.</p>
-                        <div class="blog-card-tags">
-                            <span class="blog-card-tag">Performance</span>
-                            <span class="blog-card-tag">Optimization</span>
-                            <span class="blog-card-tag">Speed</span>
-                        </div>
-                        <div class="blog-card-footer">
-                            <div class="blog-card-author">
-                                <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
-                                <span class="blog-card-author-name">Michael Smith</span>
-                            </div>
-                            <div class="blog-card-comments">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                                6 Comments
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="blog-card">
-                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
-                    <div class="blog-card-content">
-                        <div class="blog-card-meta">
-                            <span class="blog-card-category">Backend</span>
-                            <span>March 20, 2025</span>
-                        </div>
-                        <h3 class="blog-card-title"><a href="#">Getting Started with GraphQL: A Practical Guide</a></h3>
-                        <p class="blog-card-excerpt">Learn how to implement GraphQL in your applications and why it might be a better alternative to traditional REST APIs.</p>
-                        <div class="blog-card-tags">
-                            <span class="blog-card-tag">GraphQL</span>
-                            <span class="blog-card-tag">API</span>
-                            <span class="blog-card-tag">Backend</span>
-                        </div>
-                        <div class="blog-card-footer">
-                            <div class="blog-card-author">
-                                <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
-                                <span class="blog-card-author-name">Sarah Wilson</span>
-                            </div>
-                            <div class="blog-card-comments">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                                9 Comments
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="blog-card">
-                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
-                    <div class="blog-card-content">
-                        <div class="blog-card-meta">
-                            <span class="blog-card-category">DevOps</span>
-                            <span>March 15, 2025</span>
-                        </div>
-                        <h3 class="blog-card-title"><a href="#">CI/CD Pipelines Explained: From Concept to Implementation</a></h3>
-                        <p class="blog-card-excerpt">Understand the fundamentals of Continuous Integration and Continuous Deployment and how to set up effective pipelines for your projects.</p>
-                        <div class="blog-card-tags">
-                            <span class="blog-card-tag">DevOps</span>
-                            <span class="blog-card-tag">CI/CD</span>
-                            <span class="blog-card-tag">Automation</span>
-                        </div>
-                        <div class="blog-card-footer">
-                            <div class="blog-card-author">
-                                <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
-                                <span class="blog-card-author-name">David Lee</span>
-                            </div>
-                            <div class="blog-card-comments">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                                4 Comments
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="blog-card">
-                    <img src="/api/placeholder/400/200" alt="Blog Post" class="blog-card-image">
-                    <div class="blog-card-content">
-                        <div class="blog-card-meta">
-                            <span class="blog-card-category">Accessibility</span>
-                            <span>March 10, 2025</span>
-                        </div>
-                        <h3 class="blog-card-title"><a href="#">Web Accessibility: Making Your Sites Inclusive for Everyone</a></h3>
-                        <p class="blog-card-excerpt">Discover practical tips and best practices for ensuring your websites are accessible to all users, including those with disabilities.</p>
-                        <div class="blog-card-tags">
-                            <span class="blog-card-tag">Accessibility</span>
-                            <span class="blog-card-tag">Inclusivity</span>
-                            <span class="blog-card-tag">UX</span>
-                        </div>
-                        <div class="blog-card-footer">
-                            <div class="blog-card-author">
-                                <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
-                                <span class="blog-card-author-name">Lisa Rodriguez</span>
-                            </div>
-                            <div class="blog-card-comments">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                                7 Comments
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             
             <div class="pagination">
                 <a href="#" class="pagination-item disabled">

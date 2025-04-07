@@ -78,8 +78,9 @@ app.get("/createblog", (req, res) => {
   res.render("createBlog");
 });
 
-app.get("/blog", (req, res) => {
-  res.render("blog");
+app.get("/blog", async (req, res) => {
+  const data = await blog.findAll();
+  res.render("blog", { blog: data });
 });
 app.get("/singleblog", (req, res) => {
   res.render("singleBlog");
