@@ -562,27 +562,7 @@
                 </div>
             </div>
             
-            <div class="featured-blog">
-                <img src="/api/placeholder/600/600" alt="Featured Post" class="featured-image">
-                <div class="featured-content">
-                    <span class="featured-label">Featured Post</span>
-                    <h2 class="featured-title"><a href="#">10 Essential Web Development Tools Every Developer Should Know</a></h2>
-                    <p class="featured-excerpt">Discover the most essential development tools that will boost your productivity and help you create better web applications faster than ever before.</p>
-                    <div class="featured-meta">
-                        <div class="featured-author">
-                            <img src="/api/placeholder/40/40" alt="Author" class="featured-author-image">
-                            <div class="featured-author-info">
-                                <span class="featured-author-name">John Doe</span>
-                                <span class="featured-date">April 7, 2025</span>
-                            </div>
-                        </div>
-                        <a href="#" class="read-more">
-                            Read Article
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            
             
             <div class="blogs-grid">
                 <% blog.forEach((post) => { %>
@@ -591,20 +571,45 @@
                     <img src="<%= post.image1 %>" alt="Blog Post" class="blog-card-image">
                     <div class="blog-card-content">
                         <div class="blog-card-meta">
-                            <span class="blog-card-category"><%= post.category %></span>
+                            <span class="blog-card-category">
+                                <%
+                                    const categoryNames = {
+                                        '1' : 'Technology',
+                                        '2' : 'Travel',
+                                        '3' : 'Food',
+                                        '4' : 'Lifestyle',
+                                        '5' : 'Business',
+                                        '6' : 'Health',
+                                    };
+                                    const categories = post.categories.split(',').map(id => categoryNames[id.trim()] || "Uncategorized");
+                                %>
+                                <%= categories.join(', ') %>
+                            </span>
                             <span><%= post.createdAt %></span>
                         </div>
                         <h3 class="blog-card-title"><a href="#"><%= post.title %></a></h3>
                         <p class="blog-card-excerpt"><%= post.description %></p>
                         <div class="blog-card-tags">
-                            <span class="blog-card-tag"><%= post.tags %></span>
-                            <span class="blog-card-tag">Frameworks</span>
-                            <span class="blog-card-tag">Frontend</span>
+                            <% if(post.tags) { %>
+                                <% post.tags.split(',').forEach(tag => { %>
+                                    <span class="blog-card-tag"><%= tag.trim() %></span>
+                                <% }); %>
+                            <% } %>
+                            
                         </div>
                         <div class="blog-card-footer">
                             <div class="blog-card-author">
                                 <img src="/api/placeholder/30/30" alt="Author" class="blog-card-author-image">
-                                <span class="blog-card-author-name"><%= post.author || "John Doe" %></span></span>
+                                <span class="blog-card-author-name">
+                                    <% 
+                                        const authorNames = {
+                                            '1': 'Admin User',
+                                            '2': 'Manish Pandey',
+                                            '3': 'Motte',
+                                        };
+                                        %>
+                                    <%= authorNames[post.author] || "Unknown Author" %>
+                                </span></span>
                             </div>
                             <div class="blog-card-comments">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
