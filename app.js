@@ -98,8 +98,16 @@ app.get("/delete/:id", async (req, res) => {
 
 app.get("/dashboard", async (req, res) => {
   const data = await blog.findAll();
-  console.log(data);
+
   res.render("dashboard", { art: data });
+});
+
+//edit blog
+app.get("/editBlog/:id", async (req, res) => {
+  const { id } = req.params;
+  const data = await blog.findAll({ where: { id: id } });
+  console.log(data);
+  res.render("editBlog", { blog: data });
 });
 app.use(express.static("./storage/"));
 
